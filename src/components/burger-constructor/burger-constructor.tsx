@@ -9,7 +9,12 @@ import {
   selectOrderModalData,
   selectUser
 } from '@selectors';
-import { createOrder, closeOrderModal } from '@slices';
+import {
+  createOrder,
+  closeOrderModal,
+  removeIngredient,
+  moveIngredient
+} from '@slices';
 import { TConstructorIngredient } from '@utils-types';
 
 export const BurgerConstructor: FC = () => {
