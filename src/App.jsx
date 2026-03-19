@@ -9,9 +9,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<ConstructorPage />} />
-        <Route path="/feed" element={<FeedPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path='/' element={<ConstructorPage />} />
+        <Route path='/feed' element={<FeedPage />} />
+        <Route path='/profile' element={<ProfilePage />} />
       </Routes>
     </Router>
   );
