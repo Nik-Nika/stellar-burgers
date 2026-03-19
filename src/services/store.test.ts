@@ -1,34 +1,27 @@
-import { rootReducer } from './store';
+import store, { rootReducer } from './store';
+import constructorReducer from './slices/constructorSlice';
+import ingredientsReducer from './slices/ingredientsSlice';
+import feedReducer from './slices/feedSlice';
+import orderReducer from './slices/orderSlice';
+import userReducer from './slices/userSlice';
 
 describe('rootReducer', () => {
-  it('должен возвращать корректное начальное состояние при вызове с undefined и неизвестным экшеном', () => {
-    const state = rootReducer(undefined, { type: 'UNKNOWN_ACTION' });
+  it('должен возвращать корректное начальное состояние при инициализации', () => {
+    const initAction = { type: '@@INIT' };
+    const state = rootReducer(undefined, initAction);
 
-    expect(state).toHaveProperty('ingredients');
-    expect(state).toHaveProperty('burgerConstructor');
-    expect(state).toHaveProperty('user');
-    expect(state).toHaveProperty('feed');
-    expect(state).toHaveProperty('orders');
-
-    expect(state.ingredients).toEqual({
-      ingredients: [],
-      loading: false,
-      error: null
+    expect(state).toEqual({
+      burgerConstructor: constructorReducer(undefined, initAction),
+      ingredients: ingredientsReducer(undefined, initAction),
+      feed: feedReducer(undefined, initAction),
+      orders: orderReducer(undefined, initAction),
+      user: userReducer(undefined, initAction)
     });
+  });
 
-    expect(state.burgerConstructor).toEqual({
-      bun: null,
-      ingredients: [],
-      orderRequest: false,
-      orderModalData: null,
-      error: null
-    });
-
-    expect(state.user).toEqual({
-      user: null,
-      isAuthChecked: false,
-      loading: false,
-      error: null
-    });
+  it('должен возвращать то же состояние при неизвестном экшене', () => {
+    const prevState = store.getState();
+    const state = rootReducer(prevState, { type: 'UNKNOWN_ACTION' });
+    expect(state).toBe(prevState);
   });
 });
